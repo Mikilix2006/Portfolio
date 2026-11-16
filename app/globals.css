@@ -34,6 +34,14 @@ h2 { font-size:clamp(2rem,5vw,3.25rem); font-weight:800; }
 .card:hover { transform:translateY(-4px); box-shadow:8px 8px 0 var(--fill); }
 .card h3 { font-size:1.6rem; font-weight:800; }
 .card p { margin:.75rem 0 0; }
+/* Obra: cinta de precaución animada; solo decorativo, los enlaces siguen activos */
+.card.wip { position:relative; overflow:hidden; border-style:dashed; }
+.card.wip::after { content:""; position:absolute; left:0; right:0; bottom:0; height:.7rem; background:repeating-linear-gradient(-45deg,#f5b400 0 .7rem,#1a1a1a .7rem 1.4rem); background-size:2rem 100%; animation:hazard 1.2s linear infinite; pointer-events:none; }
+.card.wip { padding-bottom:2.5rem; }
+.card .tape { margin:0 0 1rem; }
+.tape span { display:inline-block; background:#f5b400; color:#1a1a1a; font:700 .8rem/1 ui-monospace,Consolas,monospace; letter-spacing:.08em; text-transform:uppercase; padding:.4rem .7rem; border-radius:.3rem; transform:rotate(-2deg); animation:sway 2.4s ease-in-out infinite; transform-origin:left center; }
+@keyframes hazard { to { background-position-x:2rem; } }
+@keyframes sway { 50% { transform:rotate(1.5deg); } }
 .stack { color:var(--sub); font-size:.9rem; font-family:ui-monospace,Consolas,monospace; }
 .links { display:flex; flex-wrap:wrap; gap:.75rem; margin-top:1.25rem !important; }
 .btn { text-decoration:none; font-weight:600; padding:.6rem 1.1rem; min-height:44px; display:inline-flex; align-items:center; border-radius:999px; background:var(--text); color:var(--bg); transition:background .2s,color .2s; }

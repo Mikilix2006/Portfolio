@@ -1,5 +1,7 @@
 import { dict, type Lang } from "@/data/dictionary";
 import { projects } from "@/data/projects";
+import NoDemo from "./NoDemo";
+import BackToTop from "./BackToTop";
 
 export default async function Home({ params }: { params: Promise<{ lang: Lang }> }) {
   const { lang } = await params;
@@ -33,6 +35,7 @@ export default async function Home({ params }: { params: Promise<{ lang: Lang }>
                 <p>{p.text[lang].description}</p>
                 <p className="stack">{p.stack.join(" · ")}</p>
                 <p className="links">
+                  {p.noDemo && <NoDemo label={t.demo} message={t.noDemo} />}
                   {p.demo && <a className="btn" href={p.demo} target="_blank" rel="noopener noreferrer">{t.demo} →</a>}
                   <a className="btn ghost" href={p.repo} target="_blank" rel="noopener noreferrer">{t.repo}</a>
                 </p>
@@ -46,6 +49,7 @@ export default async function Home({ params }: { params: Promise<{ lang: Lang }>
           <p className="about">{t.aboutText}</p>
         </section>
       </main>
+      <BackToTop label={t.top} />
       <footer>© MMXXVI · {t.made}</footer>
     </>
   );

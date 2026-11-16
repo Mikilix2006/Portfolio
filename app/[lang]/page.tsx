@@ -27,7 +27,8 @@ export default async function Home({ params }: { params: Promise<{ lang: Lang }>
           <p className="sub">{t.workLead}</p>
           <ul className="grid">
             {projects.map((p, i) => (
-              <li key={p.id} className="card reveal" style={{ animationDelay: `${0.1 * i}s` }}>
+              <li key={p.id} className={`card reveal${p.wip ? " wip" : ""}`} style={{ animationDelay: `${0.1 * i}s` }}>
+                {p.wip && <p className="tape"><span>🚧 {t.wip}</span></p>}
                 <h3>{p.text[lang].name}</h3>
                 <p>{p.text[lang].description}</p>
                 <p className="stack">{p.stack.join(" · ")}</p>

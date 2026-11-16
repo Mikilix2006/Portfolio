@@ -2,6 +2,7 @@ export type Project = {
   id: string;
   repo: string;
   demo?: string;
+  wip?: boolean;
   stack: string[];
   text: Record<"es" | "en", { name: string; description: string }>;
 };
@@ -12,6 +13,7 @@ export const projects: Project[] = [
     id: "motogp-paradise",
     repo: "https://github.com/Mikilix2006/MotoGP-Paradise",
     demo: "https://rebufo.planetamiguel.com",
+    wip: true,
     stack: ["Next.js", "TypeScript", "Prisma", "PostgreSQL", "Tailwind"],
     text: {
       es: {

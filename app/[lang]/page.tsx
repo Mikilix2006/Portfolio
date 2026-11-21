@@ -1,7 +1,10 @@
 import { dict, type Lang } from "@/data/dictionary";
+import { techGroups } from "@/data/tech";
 import { projects } from "@/data/projects";
 import NoDemo from "./NoDemo";
 import BackToTop from "./BackToTop";
+import Motion from "./Motion";
+import TechScroll from "./TechScroll";
 
 export default async function Home({ params }: { params: Promise<{ lang: Lang }> }) {
   const { lang } = await params;
@@ -13,6 +16,8 @@ export default async function Home({ params }: { params: Promise<{ lang: Lang }>
       <nav className="nav">
         <a href="#work">{t.work}</a>
         <a href="#about">{t.about}</a>
+        <a href="#tech">{t.tech}</a>
+        <a href="#social">{t.social}</a>
         <a href={`/${other}/`} hrefLang={other} lang={other}>{other.toUpperCase()}</a>
       </nav>
       <main>
@@ -48,7 +53,28 @@ export default async function Home({ params }: { params: Promise<{ lang: Lang }>
           <h2>{t.about}</h2>
           <p className="about">{t.aboutText}</p>
         </section>
+
+        <TechScroll id="tech" heading={t.tech} groups={techGroups.map((g) => ({ title: t[g.label], items: g.items }))} />
+
+        <section id="social" className="section">
+          <h2>{t.social}</h2>
+          <p className="sub">{t.socialLead}</p>
+          <ul className="socials">
+            {[
+              ["GitHub", "github", "https://github.com/Mikilix2006"],
+              ["LinkedIn", "linkedin", "https://www.linkedin.com/in/miguel-gonz%C3%A1lez-delgado-00b7a13b0"],
+              ["Codewars", "codewars", "https://www.codewars.com/users/Mikilix"],
+            ].map(([name, icon, href]) => (
+              <li key={name}>
+                <a href={href} aria-label={name} title={name} target="_blank" rel="noopener noreferrer">
+                  <img src={`/icons/${icon}.svg`} alt="" width={40} height={40} />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
       </main>
+      <Motion />
       <BackToTop label={t.top} />
       <footer>© MMXXVI · {t.made}</footer>
     </>

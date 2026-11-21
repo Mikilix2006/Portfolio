@@ -69,6 +69,7 @@ export default async function Home({ params }: { params: Promise<{ lang: Lang }>
               ["GitHub", "github", "https://github.com/Mikilix2006"],
               ["LinkedIn", "linkedin", "https://www.linkedin.com/in/miguel-gonz%C3%A1lez-delgado-00b7a13b0"],
               ["Codewars", "codewars", "https://www.codewars.com/users/Mikilix"],
+              ["Instagram", "instagram", "https://www.instagram.com/ciencia.compilada"],
             ].map(([name, icon, href]) => (
               <li key={name}>
                 <a href={href} aria-label={name} title={name} target="_blank" rel="noopener noreferrer">

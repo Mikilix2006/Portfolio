@@ -86,7 +86,8 @@ h2 { font-size:clamp(2rem,5vw,3.25rem); font-weight:800; }
 .js .section.in { opacity:1; transform:none; }
 .js .section .reveal { animation-play-state:paused; }
 .js .section.in .reveal { animation-play-state:running; }
-.nav a[aria-current] { border-color:var(--line); }
+.nav a { transition:border-color .2s, filter .2s; }
+.nav a[aria-current] { border-color:var(--line); font-weight:800; filter:drop-shadow(0 0 .12em var(--line)) drop-shadow(0 0 .45em var(--line)); } /* drop-shadow: el brillo cubre texto y subrayado */
 h1 em { background-repeat:no-repeat; animation:mark .8s .5s cubic-bezier(.23,1,.32,1) backwards; }
 @keyframes mark { from { background-size:0 100%; } }
 .socials { list-style:none; padding:0; margin:0; display:flex; gap:1rem; }

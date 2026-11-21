@@ -6,6 +6,8 @@ import NoDemo from "./NoDemo";
 import BackToTop from "./BackToTop";
 import Motion from "./Motion";
 import TechScroll from "./TechScroll";
+import { marks } from "./marks";
+import { facts } from "@/data/about";
 import TimelineScroll from "./TimelineScroll";
 import { timeline } from "@/data/timeline";
 
@@ -55,7 +57,17 @@ export default async function Home({ params }: { params: Promise<{ lang: Lang }>
 
         <section id="about" className="section">
           <h2>{t.about}</h2>
-          <p className="about">{t.aboutText}</p>
+          <div className="about-grid">
+            <p className="about">{marks(t.aboutText)}</p>
+            <ul className="facts">
+              {facts[lang].map((f, i) => (
+                <li key={f.label} className="card reveal" style={{ animationDelay: `${0.12 * (i + 1)}s` }}>
+                  <p className="fact-label">{f.label}</p>
+                  <p className="fact-text">{f.href ? <a href={f.href} target="_blank" rel="noopener noreferrer">{f.text}</a> : f.text}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
         </section>
 
         <TimelineScroll id="path" heading={t.path} today={t.today} years={timeline.map((y) => ({ year: y.year, events: y.events[lang] }))} />
@@ -70,6 +82,7 @@ export default async function Home({ params }: { params: Promise<{ lang: Lang }>
               ["GitHub", "github", "https://github.com/Mikilix2006"],
               ["LinkedIn", "linkedin", "https://www.linkedin.com/in/miguel-gonz%C3%A1lez-delgado-00b7a13b0"],
               ["Codewars", "codewars", "https://www.codewars.com/users/Mikilix"],
+              ["LeetCode", "leetcode", "https://leetcode.com/u/Mikilix/"],
               ["Instagram", "instagram", "https://www.instagram.com/ciencia.compilada"],
             ].map(([name, icon, href], i) => (
               <li key={name} style={{ "--i": i } as CSSProperties}>

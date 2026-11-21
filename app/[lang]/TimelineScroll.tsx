@@ -1,6 +1,7 @@
 "use client";
 import { Fragment, useEffect, useRef, type CSSProperties } from "react";
 import type { Event } from "@/data/timeline";
+import { marks } from "./marks";
 import { stepState, useScrollStep } from "./useScrollStep";
 
 type Year = { year: string; events: readonly Event[] };
@@ -51,7 +52,7 @@ export default function TimelineScroll({ id, heading, years, today }: { id: stri
                     {(text.includes("[gh]") ? text : `${text}[gh]`).split("[gh]").map((chunk, c) => (
                       <Fragment key={c}>
                         {c > 0 && href && <a className={`gh${text.includes("[gh]") ? " inline" : ""}`} href={href} target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub" />}
-                        {chunk.split("*").map((part, k) => (k % 2 ? <strong key={k}>{part}</strong> : part))}
+                        {marks(chunk)}
                       </Fragment>
                     ))}
                   </li>

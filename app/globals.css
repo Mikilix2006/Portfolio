@@ -61,15 +61,6 @@ h2 { font-size:clamp(2rem,5vw,3.25rem); font-weight:800; }
 .btn:hover { background:var(--line); color:#fff; }
 .btn.ghost { background:transparent; color:var(--text); box-shadow:inset 0 0 0 2px var(--text); }
 .btn.ghost:hover { box-shadow:inset 0 0 0 2px var(--line); background:transparent; color:var(--line); }
-.about-grid { display:grid; grid-template-columns:minmax(0,1.15fr) minmax(0,1fr); gap:3rem; align-items:center; margin-top:2rem; }
-.about { margin:0; font:700 clamp(1.6rem,3.4vw,2.6rem)/1.25 var(--serif); }
-.about strong { font-weight:800; box-shadow:inset 0 -.35em var(--fill); }
-.facts { list-style:none; padding:0; margin:0; display:grid; gap:1rem; }
-.facts .card { padding:1.1rem 1.4rem; }
-.fact-label { margin:0 !important; font-size:.8rem; font-weight:700; letter-spacing:.15em; text-transform:uppercase; color:var(--sub); }
-.fact-text { margin:.25rem 0 0 !important; font-size:1.1rem; }
-.fact-text a { text-decoration-color:var(--line); text-underline-offset:.2em; }
-.fact-text a:hover { color:var(--line); }
 /* Año grande y con brillo */
 .tech-title.year { font-size:clamp(4.5rem,15vw,11rem); letter-spacing:-.02em; text-shadow:0 0 .12em var(--line), 0 0 .45em var(--line); }
 /* Línea cronológica: raya vertical con un punto por hito */
@@ -112,7 +103,7 @@ h1 em { background-repeat:no-repeat; animation:mark .8s .5s cubic-bezier(.23,1,.
 .socials a:hover { transform:translateY(-4px); box-shadow:6px 6px 0 var(--fill); }
 /* Tecnologías: sección alta con contenido fijo (sticky); el scroll cambia de categoría */
 .tech { height:calc(var(--n) * 80vh + 100vh); }
-.tech.compact { height:calc(var(--n) * 40vh + 100vh); } /* la trayectoria cambia de año con poco scroll */
+.tech.compact { height:calc(var(--n) * 60vh + 100vh); } /* tecnologías y trayectoria cambian de paso con poco scroll */
 /* Más ancho que <main> (60rem) para que quepa "Herramientas" en grande sin pisar los iconos */
 .tech-stick { --w:min(78rem, 100vw - 3rem); position:sticky; top:0; height:100dvh; width:var(--w); margin-left:calc(50% - var(--w) / 2); display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.3fr); align-items:center; gap:2rem; }
 .tech-left { min-width:0; }
@@ -159,7 +150,6 @@ h1 em { background-repeat:no-repeat; animation:mark .8s .5s cubic-bezier(.23,1,.
   .timeline { --pad:1.5rem; --dot:1.1rem; gap:1rem; font-size:1rem; line-height:1.35; }
   .socials { flex-wrap:wrap; gap:.6rem; }
   .socials a { width:3.2rem; height:3.2rem; }
-  .about-grid { grid-template-columns:1fr; gap:1.5rem; }
 }
 footer { padding-top:5rem; padding-bottom:2rem; color:var(--sub); font-size:.9rem; }
 

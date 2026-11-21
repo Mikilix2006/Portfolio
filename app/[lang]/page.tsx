@@ -6,8 +6,6 @@ import NoDemo from "./NoDemo";
 import BackToTop from "./BackToTop";
 import Motion from "./Motion";
 import TechScroll from "./TechScroll";
-import { marks } from "./marks";
-import { facts } from "@/data/about";
 import TimelineScroll from "./TimelineScroll";
 import { timeline } from "@/data/timeline";
 
@@ -20,7 +18,6 @@ export default async function Home({ params }: { params: Promise<{ lang: Lang }>
       <a className="skip" href="#work">{t.skip}</a>
       <nav className="nav">
         <a href="#work">{t.work}</a>
-        <a href="#about">{t.about}</a>
         <a href="#path">{t.path}</a>
         <a href="#tech">{t.tech}</a>
         <a href="#social">{t.social}</a>
@@ -53,21 +50,6 @@ export default async function Home({ params }: { params: Promise<{ lang: Lang }>
               </li>
             ))}
           </ul>
-        </section>
-
-        <section id="about" className="section">
-          <h2>{t.about}</h2>
-          <div className="about-grid">
-            <p className="about">{marks(t.aboutText)}</p>
-            <ul className="facts">
-              {facts[lang].map((f, i) => (
-                <li key={f.label} className="card reveal" style={{ animationDelay: `${0.12 * (i + 1)}s` }}>
-                  <p className="fact-label">{f.label}</p>
-                  <p className="fact-text">{f.href ? <a href={f.href} target="_blank" rel="noopener noreferrer">{f.text}</a> : f.text}</p>
-                </li>
-              ))}
-            </ul>
-          </div>
         </section>
 
         <TimelineScroll id="path" heading={t.path} today={t.today} years={timeline.map((y) => ({ year: y.year, events: y.events[lang] }))} />

@@ -50,7 +50,7 @@ export default function TechScroll({ id, heading, groups }: { id: string; headin
   const state = (i: number) => stepState(i, active);
 
   return (
-    <section id={id} ref={ref} className="tech" style={{ "--n": groups.length } as CSSProperties}>
+    <section id={id} ref={ref} className="tech compact" style={{ "--n": groups.length } as CSSProperties}>
       <div className="tech-stick">
         <div className="tech-left">
           <h2 className="kicker">{heading}</h2>

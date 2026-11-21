@@ -1,8 +1,9 @@
 "use client";
-import { useRef, type CSSProperties } from "react";
+import { Fragment, useRef, type CSSProperties } from "react";
+import type { Event } from "@/data/timeline";
 import { stepState, useScrollStep } from "./useScrollStep";
 
-type Year = { year: string; events: readonly string[] };
+type Year = { year: string; events: readonly Event[] };
 
 // Mismo patrón que TechScroll: el año a la izquierda y su línea temporal a la derecha.
 export default function TimelineScroll({ id, heading, years, today }: { id: string; heading: string; years: Year[]; today: string }) {
@@ -26,7 +27,19 @@ export default function TimelineScroll({ id, heading, years, today }: { id: stri
         <div className="tech-sets">
           {years.map((y, yi) => (
             <ul key={y.year} className={`timeline tech-set${yi > 0 ? " has-prev" : ""}${yi < years.length - 1 ? " has-next" : ""}`} data-s={stepState(yi, active)} aria-label={y.year} aria-hidden={yi !== active}>
-              {y.events.map((e, i) => <li key={e} style={{ "--i": i } as CSSProperties}>{e}</li>)}
+              {y.events.map((e, i) => {
+                const { text, href } = typeof e === "string" ? { text: e, href: undefined } : e;
+                return (
+                  <li key={text} style={{ "--i": i } as CSSProperties}>
+                    {(text.includes("[gh]") ? text : `${text}[gh]`).split("[gh]").map((chunk, c) => (
+                      <Fragment key={c}>
+                        {c > 0 && href && <a className={`gh${text.includes("[gh]") ? " inline" : ""}`} href={href} target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub" />}
+                        {chunk.split("*").map((part, k) => (k % 2 ? <strong key={k}>{part}</strong> : part))}
+                      </Fragment>
+                    ))}
+                  </li>
+                );
+              })}
               {yi === years.length - 1 && <li className="now" style={{ "--i": y.events.length } as CSSProperties}>{today}</li>}
             </ul>
           ))}

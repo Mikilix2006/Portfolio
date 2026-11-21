@@ -65,16 +65,21 @@ h2 { font-size:clamp(2rem,5vw,3.25rem); font-weight:800; }
 /* Año grande y con brillo */
 .tech-title.year { font-size:clamp(4.5rem,15vw,11rem); letter-spacing:-.02em; text-shadow:0 0 .12em var(--line), 0 0 .45em var(--line); }
 /* Línea cronológica: raya vertical con un punto por hito */
-.timeline { grid-area:1/1; align-self:center; list-style:none; margin:0; padding:0 0 0 2rem; border-left:3px solid var(--line); display:flex; flex-direction:column; gap:1.75rem; font-size:clamp(1.1rem,2.2vw,1.55rem); line-height:1.4; }
+.timeline { --pad:2.5rem; --dot:1.6rem; grid-area:1/1; align-self:center; list-style:none; margin:0; padding:0 0 0 var(--pad); border-left:3px solid var(--line); display:flex; flex-direction:column; gap:2rem; font-size:clamp(1.2rem,2.4vw,1.75rem); font-weight:600; line-height:1.4; }
 .timeline { position:relative; }
 .timeline.has-prev::before, .timeline.has-next::after { content:""; position:absolute; left:-3px; width:3px; height:100vh; background:var(--line); }
 .timeline.has-prev::before { bottom:100%; }
 .timeline.has-next::after { top:100%; }
 .timeline li { position:relative; opacity:0; transform:translateX(28px); transition:opacity .5s, transform .5s; }
-.timeline li::before { content:""; position:absolute; left:calc(-2rem - 1.5px - .5rem); top:.4em; width:1rem; height:1rem; border-radius:50%; background:var(--line); box-shadow:0 0 0 4px var(--bg); }
+.timeline li::before { content:""; position:absolute; left:calc(-1 * var(--pad) - 1.5px - var(--dot) / 2); top:calc(.7em - var(--dot) / 2); width:var(--dot); height:var(--dot); border-radius:50%; background:radial-gradient(circle, var(--bg) 0 30%, var(--line) 34%); box-shadow:0 0 0 4px var(--bg), 0 0 1.1rem .2rem var(--line); }
+.timeline strong { font-weight:800; color:var(--text); box-shadow:inset 0 -.4em var(--fill); padding:0 .15em; }
+/* Logo de GitHub sin fondo: máscara con el SVG, así toma el color del texto (también en oscuro) */
+.timeline .gh { display:inline-block; width:1.15em; height:1.15em; margin-left:.5em; vertical-align:-.15em; background:currentColor; -webkit-mask:url(/icons/github.svg) center/contain no-repeat; mask:url(/icons/github.svg) center/contain no-repeat; transition:color .2s, transform .2s; }
+.timeline .gh.inline { margin-left:0; }
+.timeline .gh:hover { color:var(--line); transform:scale(1.15); }
 .timeline li.now { font:800 1.2em/1 var(--serif); letter-spacing:.2em; color:var(--line); }
-.timeline li.now::before { width:1.25rem; height:1.25rem; left:calc(-2rem - 1.5px - .625rem); top:.0em; animation:pulse 1.6s ease-out infinite; }
-@keyframes pulse { from { box-shadow:0 0 0 4px var(--bg), 0 0 0 4px var(--line); } to { box-shadow:0 0 0 4px var(--bg), 0 0 0 16px transparent; } }
+.timeline li.now::before { width:calc(var(--dot) * 1.4); height:calc(var(--dot) * 1.4); left:calc(-1 * var(--pad) - 1.5px - var(--dot) * .7); top:calc(.5em - var(--dot) * .7); animation:pulse 1.6s ease-out infinite; }
+@keyframes pulse { from { box-shadow:0 0 0 4px var(--bg), 0 0 0 4px var(--line), 0 0 1.1rem .2rem var(--line); } to { box-shadow:0 0 0 4px var(--bg), 0 0 0 18px transparent, 0 0 1.1rem .2rem var(--line); } }
 /* Teselas claras fijas: varios logos son oscuros y se perderían en modo oscuro */
 /* Entrada al hacer scroll: Motion.tsx añade .js al <html> y .in a cada sección visible */
 .js .section { opacity:0; transform:translateY(32px); transition:opacity .7s cubic-bezier(.23,1,.32,1), transform .7s cubic-bezier(.23,1,.32,1); }

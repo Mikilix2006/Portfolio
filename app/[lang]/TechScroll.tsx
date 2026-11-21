@@ -1,32 +1,14 @@
 "use client";
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useRef, type CSSProperties } from "react";
+import { stepState, useScrollStep } from "./useScrollStep";
 
 type Group = { title: string; items: readonly { name: string; icon: string }[] };
 
 // Sección "pegada" a la pantalla: el scroll recorre las categorías sin mover el contenido.
 export default function TechScroll({ id, heading, groups }: { id: string; heading: string; groups: Group[] }) {
   const ref = useRef<HTMLElement>(null);
-  const [active, setActive] = useState(0);
-
-  useEffect(() => {
-    let raf = 0;
-    const update = () => {
-      raf = 0;
-      const el = ref.current;
-      if (!el) return;
-      const r = el.getBoundingClientRect();
-      const total = r.height - window.innerHeight;
-      const p = total > 0 ? Math.min(1, Math.max(0, -r.top / total)) : 0;
-      setActive(Math.min(groups.length - 1, Math.floor(p * groups.length)));
-    };
-    const onScroll = () => { if (!raf) raf = requestAnimationFrame(update); };
-    update();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    return () => { window.removeEventListener("scroll", onScroll); window.removeEventListener("resize", onScroll); cancelAnimationFrame(raf); };
-  }, [groups.length]);
-
-  const state = (i: number) => (i === active ? "active" : i < active ? "before" : "after");
+  const active = useScrollStep(ref, groups.length);
+  const state = (i: number) => stepState(i, active);
 
   return (
     <section id={id} ref={ref} className="tech" style={{ "--n": groups.length } as CSSProperties}>

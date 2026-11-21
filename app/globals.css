@@ -62,6 +62,19 @@ h2 { font-size:clamp(2rem,5vw,3.25rem); font-weight:800; }
 .btn.ghost { background:transparent; color:var(--text); box-shadow:inset 0 0 0 2px var(--text); }
 .btn.ghost:hover { box-shadow:inset 0 0 0 2px var(--line); background:transparent; color:var(--line); }
 .about { font-size:1.35rem; max-width:40rem; margin-top:1rem; }
+/* Año grande y con brillo */
+.tech-title.year { font-size:clamp(4.5rem,15vw,11rem); letter-spacing:-.02em; text-shadow:0 0 .12em var(--line), 0 0 .45em var(--line); }
+/* Línea cronológica: raya vertical con un punto por hito */
+.timeline { grid-area:1/1; align-self:center; list-style:none; margin:0; padding:0 0 0 2rem; border-left:3px solid var(--line); display:flex; flex-direction:column; gap:1.75rem; font-size:clamp(1.1rem,2.2vw,1.55rem); line-height:1.4; }
+.timeline { position:relative; }
+.timeline.has-prev::before, .timeline.has-next::after { content:""; position:absolute; left:-3px; width:3px; height:100vh; background:var(--line); }
+.timeline.has-prev::before { bottom:100%; }
+.timeline.has-next::after { top:100%; }
+.timeline li { position:relative; opacity:0; transform:translateX(28px); transition:opacity .5s, transform .5s; }
+.timeline li::before { content:""; position:absolute; left:calc(-2rem - 1.5px - .5rem); top:.4em; width:1rem; height:1rem; border-radius:50%; background:var(--line); box-shadow:0 0 0 4px var(--bg); }
+.timeline li.now { font:800 1.2em/1 var(--serif); letter-spacing:.2em; color:var(--line); }
+.timeline li.now::before { width:1.25rem; height:1.25rem; left:calc(-2rem - 1.5px - .625rem); top:.0em; animation:pulse 1.6s ease-out infinite; }
+@keyframes pulse { from { box-shadow:0 0 0 4px var(--bg), 0 0 0 4px var(--line); } to { box-shadow:0 0 0 4px var(--bg), 0 0 0 16px transparent; } }
 /* Teselas claras fijas: varios logos son oscuros y se perderían en modo oscuro */
 /* Entrada al hacer scroll: Motion.tsx añade .js al <html> y .in a cada sección visible */
 .js .section { opacity:0; transform:translateY(32px); transition:opacity .7s cubic-bezier(.23,1,.32,1), transform .7s cubic-bezier(.23,1,.32,1); }
@@ -81,6 +94,8 @@ h1 em { background-repeat:no-repeat; animation:mark .8s .5s cubic-bezier(.23,1,.
 .tech-left { min-width:0; }
 .kicker { font-size:1rem; font-family:var(--sans); font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:var(--sub); }
 .tech-titles, .tech-sets { display:grid; }
+/* Ocupa todo el alto para que las líneas de la trayectoria lleguen a los bordes de la caja */
+.tech-sets { align-self:stretch; align-content:center; overflow-y:clip; }
 .tech-title { grid-area:1/1; margin:0; font:800 clamp(2.2rem,5vw,4.4rem)/1 var(--serif); overflow-wrap:break-word; }
 .tech-title, .tech-set { transition:opacity .5s, transform .6s cubic-bezier(.23,1,.32,1); }
 .tech-title[data-s="before"], .tech-set[data-s="before"] { opacity:0; transform:translateY(-3rem); pointer-events:none; }
@@ -93,7 +108,7 @@ h1 em { background-repeat:no-repeat; animation:mark .8s .5s cubic-bezier(.23,1,.
 .tech-set[data-s="active"] li { opacity:1; transform:none; transition-delay:calc(var(--i) * 70ms); }
 /* Teselas claras fijas: varios logos son oscuros y se perderían en modo oscuro */
 .chips li img { width:4.5rem; height:4.5rem; padding:.7rem; background:#fff; border:1px solid var(--border); border-radius:1.1rem; transition:box-shadow .2s; }
-.tech-set[data-s="active"] li:hover { transform:translateY(-4px); transition-delay:0s; }
+.tech-set[data-s="active"].chips li:hover { transform:translateY(-4px); transition-delay:0s; }
 .chips li:hover img { box-shadow:5px 5px 0 var(--fill); }
 @media (max-width:700px) { .tech-stick { grid-template-columns:1fr; align-content:center; gap:1.5rem; } .chips li { width:5.2rem; } .chips li img { width:3.8rem; height:3.8rem; } }
 footer { padding-top:5rem; padding-bottom:2rem; color:var(--sub); font-size:.9rem; }

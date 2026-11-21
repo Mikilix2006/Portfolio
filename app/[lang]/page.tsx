@@ -5,6 +5,8 @@ import NoDemo from "./NoDemo";
 import BackToTop from "./BackToTop";
 import Motion from "./Motion";
 import TechScroll from "./TechScroll";
+import TimelineScroll from "./TimelineScroll";
+import { timeline } from "@/data/timeline";
 
 export default async function Home({ params }: { params: Promise<{ lang: Lang }> }) {
   const { lang } = await params;
@@ -16,6 +18,7 @@ export default async function Home({ params }: { params: Promise<{ lang: Lang }>
       <nav className="nav">
         <a href="#work">{t.work}</a>
         <a href="#about">{t.about}</a>
+        <a href="#path">{t.path}</a>
         <a href="#tech">{t.tech}</a>
         <a href="#social">{t.social}</a>
         <a href={`/${other}/`} hrefLang={other} lang={other}>{other.toUpperCase()}</a>
@@ -53,6 +56,8 @@ export default async function Home({ params }: { params: Promise<{ lang: Lang }>
           <h2>{t.about}</h2>
           <p className="about">{t.aboutText}</p>
         </section>
+
+        <TimelineScroll id="path" heading={t.path} today={t.today} years={timeline.map((y) => ({ year: y.year, events: y.events[lang] }))} />
 
         <TechScroll id="tech" heading={t.tech} groups={techGroups.map((g) => ({ title: t[g.label], items: g.items }))} />
 

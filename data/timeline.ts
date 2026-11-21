@@ -2,9 +2,10 @@ import type { Lang } from "./dictionary";
 
 // Trayectoria: un año por paso del scroll. Todo texto en ES y EN.
 const REBUFO = "https://github.com/Mikilix2006/MotoGP-Paradise";
+const WEB = "/primera-web/index.html"; // con index.html explícito: el servidor de desarrollo no sirve el índice de carpetas de public/
 const GAME = "https://github.com/Mikilix2006/GameOfLife";
 const REPO = "https://github.com/Mikilix2006/Proyecto1DIW-DWEC";
-export type Event = string | { text: string; href: string };
+export type Event = string | { text: string; href: string; icon?: "web"; label?: string }; // icon: "web" = abrir enlace; sin icon = GitHub
 
 // [gh] marca dónde va el icono de GitHub (si falta, va al final). *texto* marca lo más importante de cada hito (se resalta al pintarlo).
 export const timeline: { year: string; events: Record<Lang, Event[]> }[] = [
@@ -13,8 +14,8 @@ export const timeline: { year: string; events: Record<Lang, Event[]> }[] = [
     en: ["I graduate from the *Science Baccalaureate*.", "I start *DAW*: my developer journey begins.", "I get started on *GitHub*."],
   } },
   { year: "2025", events: {
-    es: ["Termino mi *primera web*.", "Cierro *1º de DAW*.", "Empiezo *2º de DAW*.", { text: "Hago mi primer juego con IA: *Game of Life* [gh].", href: GAME }],
-    en: ["I finish my *first website*.", "I complete *DAW year 1*.", "I start *DAW year 2*.", { text: "I make my first game with AI: *Game of Life* [gh].", href: GAME }],
+    es: [{ text: "Termino mi *primera web* [gh].", href: WEB, icon: "web", label: "Ver la web" }, "Cierro *1º de DAW*.", "Empiezo *2º de DAW*.", { text: "Hago mi primer juego con IA: *Game of Life* [gh].", href: GAME }],
+    en: [{ text: "I finish my *first website* [gh].", href: WEB, icon: "web", label: "View the site" }, "I complete *DAW year 1*.", "I start *DAW year 2*.", { text: "I make my first game with AI: *Game of Life* [gh].", href: GAME }],
   } },
   { year: "2026", events: {
     es: [{ text: "*Proyecto integrador* [gh] con 2 compañeros, en GitHub.", href: REPO }, "Prácticas en *Essenzial* como desarrollador web.", "Termino *DAW*.", { text: "Comienzo *«Rebufo»* [gh], entre otros proyectos.", href: REBUFO }, "Empiezo la *Ingeniería de Sistemas de IA* en la UFV."],

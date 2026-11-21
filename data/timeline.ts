@@ -2,7 +2,7 @@ import type { Lang } from "./dictionary";
 
 // Trayectoria: un año por paso del scroll. Todo texto en ES y EN.
 const REBUFO = "https://github.com/Mikilix2006/MotoGP-Paradise";
-const WEB = "/primera-web/";
+const WEB = "/primera-web/index.html"; // con index.html explícito: el servidor de desarrollo no sirve el índice de carpetas de public/
 const GAME = "https://github.com/Mikilix2006/GameOfLife";
 const REPO = "https://github.com/Mikilix2006/Proyecto1DIW-DWEC";
 export type Event = string | { text: string; href: string; icon?: "web"; label?: string }; // icon: "web" = abrir enlace; sin icon = GitHub

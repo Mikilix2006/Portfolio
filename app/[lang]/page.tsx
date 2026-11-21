@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import { dict, type Lang } from "@/data/dictionary";
 import { techGroups } from "@/data/tech";
 import { projects } from "@/data/projects";
@@ -59,7 +60,7 @@ export default async function Home({ params }: { params: Promise<{ lang: Lang }>
 
         <TimelineScroll id="path" heading={t.path} today={t.today} years={timeline.map((y) => ({ year: y.year, events: y.events[lang] }))} />
 
-        <TechScroll id="tech" heading={t.tech} groups={techGroups.map((g) => ({ title: t[g.label], items: g.items }))} />
+        <TechScroll id="tech" heading={t.tech} groups={techGroups.map((g) => ({ title: t[g.label], items: g.items.map((x) => ({ icon: x.icon, name: typeof x.name === "string" ? x.name : x.name[lang] })), links: "links" in g ? g.links : undefined }))} />
 
         <section id="social" className="section">
           <h2>{t.social}</h2>
@@ -70,14 +71,15 @@ export default async function Home({ params }: { params: Promise<{ lang: Lang }>
               ["LinkedIn", "linkedin", "https://www.linkedin.com/in/miguel-gonz%C3%A1lez-delgado-00b7a13b0"],
               ["Codewars", "codewars", "https://www.codewars.com/users/Mikilix"],
               ["Instagram", "instagram", "https://www.instagram.com/ciencia.compilada"],
-            ].map(([name, icon, href]) => (
-              <li key={name}>
+            ].map(([name, icon, href], i) => (
+              <li key={name} style={{ "--i": i } as CSSProperties}>
                 <a href={href} aria-label={name} title={name} target="_blank" rel="noopener noreferrer">
                   <img src={`/icons/${icon}.svg`} alt="" width={40} height={40} />
                 </a>
               </li>
             ))}
           </ul>
+          <p className="hint">↑ {t.socialHint}</p>
         </section>
       </main>
       <Motion />

@@ -66,7 +66,10 @@ h2 { font-size:clamp(2rem,5vw,3.25rem); font-weight:800; }
 .tech-title.year { font-size:clamp(4.5rem,15vw,11rem); letter-spacing:-.02em; text-shadow:0 0 .12em var(--line), 0 0 .45em var(--line); }
 /* Línea cronológica: raya vertical con un punto por hito */
 .timeline { --pad:2.5rem; --dot:1.6rem; grid-area:1/1; align-self:center; list-style:none; margin:0; padding:0 0 0 var(--pad); border-left:3px solid var(--line); display:flex; flex-direction:column; gap:2rem; font-size:clamp(1.2rem,2.4vw,1.75rem); font-weight:600; line-height:1.4; }
-.timeline { position:relative; }
+.timeline { position:relative; max-height:100%; }
+/* Si no caben los puntos, la lista hace scroll propio; la raya se pinta como fondo para que sus puntos no se recorten */
+.timeline[data-scroll="true"] { --room:.9rem; overflow-y:auto; overflow-x:hidden; overscroll-behavior:auto; scrollbar-width:thin; border-left:0; padding:.75rem 0 .75rem calc(var(--pad) + var(--room) + var(--dot) / 2 + 1.5px); background:linear-gradient(var(--line), var(--line)) calc(var(--room) + var(--dot) / 2 - 1.5px) 0 / 3px 100% no-repeat local; }
+.timeline[data-scroll="true"]::before, .timeline[data-scroll="true"]::after { display:none; }
 .timeline.has-prev::before, .timeline.has-next::after { content:""; position:absolute; left:-3px; width:3px; height:100vh; background:var(--line); }
 .timeline.has-prev::before { bottom:100%; }
 .timeline.has-next::after { top:100%; }
@@ -90,18 +93,25 @@ h2 { font-size:clamp(2rem,5vw,3.25rem); font-weight:800; }
 .nav a[aria-current] { border-color:var(--line); font-weight:800; filter:drop-shadow(0 0 .12em var(--line)) drop-shadow(0 0 .45em var(--line)); } /* drop-shadow: el brillo cubre texto y subrayado */
 h1 em { background-repeat:no-repeat; animation:mark .8s .5s cubic-bezier(.23,1,.32,1) backwards; }
 @keyframes mark { from { background-size:0 100%; } }
-.socials { list-style:none; padding:0; margin:0; display:flex; gap:1rem; }
+#social { text-align:center; }
+.socials { list-style:none; padding:0; margin:0; display:flex; justify-content:center; gap:1.25rem; }
+/* Flotan poco (±4px) y se paran con el cursor encima para poder hacer clic */
+.socials li { animation:bob 3.4s ease-in-out infinite alternate; animation-delay:calc(var(--i) * -.85s); }
+.socials li:hover { animation-play-state:paused; }
+@keyframes bob { from { translate:0 -4px; } to { translate:0 4px; } }
+.hint { display:inline-block; margin:2rem 0 0; padding:.45rem 1.1rem; border:1px dashed var(--line); border-radius:999px; color:var(--sub); font-size:.9rem; }
 .socials a { display:grid; place-items:center; width:4rem; height:4rem; background:#fff; border:1px solid var(--border); border-radius:1rem; transition:transform .25s, box-shadow .25s; }
 .socials a:hover { transform:translateY(-4px); box-shadow:6px 6px 0 var(--fill); }
 /* Tecnologías: sección alta con contenido fijo (sticky); el scroll cambia de categoría */
 .tech { height:calc(var(--n) * 80vh + 100vh); }
+.tech.compact { height:calc(var(--n) * 40vh + 100vh); } /* la trayectoria cambia de año con poco scroll */
 /* Más ancho que <main> (60rem) para que quepa "Herramientas" en grande sin pisar los iconos */
 .tech-stick { --w:min(78rem, 100vw - 3rem); position:sticky; top:0; height:100dvh; width:var(--w); margin-left:calc(50% - var(--w) / 2); display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.3fr); align-items:center; gap:2rem; }
 .tech-left { min-width:0; }
 .kicker { font-size:1rem; font-family:var(--sans); font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:var(--sub); }
 .tech-titles, .tech-sets { display:grid; }
 /* Ocupa todo el alto para que las líneas de la trayectoria lleguen a los bordes de la caja */
-.tech-sets { align-self:stretch; align-content:center; overflow-y:clip; }
+.tech-sets { align-self:stretch; align-content:center; overflow-y:clip; grid-template-rows:minmax(0,1fr); min-height:0; }
 .tech-title { grid-area:1/1; margin:0; font:800 clamp(2.2rem,5vw,4.4rem)/1 var(--serif); overflow-wrap:break-word; }
 .tech-title, .tech-set { transition:opacity .5s, transform .6s cubic-bezier(.23,1,.32,1); }
 .tech-title[data-s="before"], .tech-set[data-s="before"] { opacity:0; transform:translateY(-3rem); pointer-events:none; }
@@ -109,21 +119,38 @@ h1 em { background-repeat:no-repeat; animation:mark .8s .5s cubic-bezier(.23,1,.
 .dots { list-style:none; display:flex; gap:.5rem; padding:0; margin:2rem 0 0; }
 .dots li { width:.6rem; height:.6rem; border-radius:50%; background:var(--border); transition:background .3s, transform .3s; }
 .dots li[data-on="true"] { background:var(--line); transform:scale(1.4); }
-.chips { grid-area:1/1; align-self:center; list-style:none; padding:0; margin:0; display:flex; flex-wrap:wrap; justify-content:center; gap:1.75rem 1.25rem; }
-.chips li { display:flex; flex-direction:column; align-items:center; gap:.6rem; width:6.5rem; text-align:center; font-size:.95rem; font-weight:600; line-height:1.2; opacity:0; transform:translateY(24px) scale(.8); transition:opacity .5s, transform .5s; }
+.chips { position:relative; grid-area:1/1; align-self:center; list-style:none; padding:0; margin:0; display:flex; flex-wrap:wrap; justify-content:center; gap:1.75rem 1.25rem; }
+.chips li { z-index:1; display:flex; flex-direction:column; align-items:center; gap:.6rem; width:6.5rem; text-align:center; font-size:.95rem; font-weight:600; line-height:1.2; opacity:0; transform:translateY(24px) scale(.8); transition:opacity .5s, transform .5s; }
 .tech-set[data-s="active"] li { opacity:1; transform:none; transition-delay:calc(var(--i) * 70ms); }
 /* Teselas claras fijas: varios logos son oscuros y se perderían en modo oscuro */
 .chips li img { width:4.5rem; height:4.5rem; padding:.7rem; background:#fff; border:1px solid var(--border); border-radius:1.1rem; transition:box-shadow .2s; }
 .tech-set[data-s="active"].chips li:hover { transform:translateY(-4px); transition-delay:0s; }
 /* Iconos flotando: cada uno se mece con su propio ritmo y fase; `translate`/`rotate` van aparte de `transform` (entrada y hover) */
-.tech-set[data-s="active"] li { animation:float var(--d,4s) ease-in-out infinite alternate; animation-delay:calc(var(--i) * -.9s); }
+.tech-set[data-s="active"].chips li { animation:float var(--d,4s) ease-in-out infinite alternate; animation-delay:calc(var(--i) * -.9s); }
 .chips li:nth-child(3n+1) { --d:3.6s; margin-top:-.6rem; }
 .chips li:nth-child(3n+2) { --d:4.6s; margin-top:1.4rem; }
 .chips li:nth-child(3n) { --d:5.4s; margin-top:.4rem; }
 .chips li img { box-shadow:0 12px 22px -12px var(--line); }
-@keyframes float { from { translate:0 -9px; rotate:-3deg; } to { translate:0 9px; rotate:3deg; } }
+.rope { position:absolute; inset:0; width:100%; height:100%; overflow:visible; pointer-events:none; z-index:0; }
+.rope path { fill:none; stroke-linecap:round; }
+.rope-base { stroke:#a9824f; stroke-width:6; }
+.rope-twist { stroke:#ead3a4; stroke-width:6; stroke-dasharray:2 6; stroke-linecap:butt !important; }
+@keyframes float { from { translate:0 calc(var(--fy,9px) * -1); rotate:-3deg; } to { translate:0 var(--fy,9px); rotate:3deg; } }
 .chips li:hover img { box-shadow:5px 5px 0 var(--fill); }
-@media (max-width:700px) { .tech-stick { grid-template-columns:1fr; align-content:center; gap:1.5rem; } .chips li { width:5.2rem; } .chips li img { width:3.8rem; height:3.8rem; } }
+/* Móvil: todo debe verse entero en una pantalla de ~360x640 sin solaparse */
+@media (max-width:700px) {
+  .nav { justify-content:center; flex-wrap:wrap; gap:.15rem .9rem; padding:.6rem .75rem; font-size:.82rem; background:color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter:blur(8px); }
+  .section { padding-top:4rem; }
+  .tech-stick { grid-template-columns:1fr; grid-template-rows:auto minmax(0,1fr); align-content:stretch; gap:1rem; padding-top:5.6rem; }
+  .tech-title { font-size:clamp(2rem,10vw,2.6rem); }
+  .tech-title.year { font-size:clamp(3.2rem,18vw,4.5rem); }
+  .dots { margin-top:1rem; }
+  .chips { gap:1.1rem .6rem; --fy:5px; }
+  .chips li { width:4.6rem; font-size:.75rem; margin-top:0 !important; }
+  .chips li img { width:3.1rem; height:3.1rem; padding:.5rem; border-radius:.8rem; }
+  .timeline { --pad:1.5rem; --dot:1.1rem; gap:1rem; font-size:1rem; line-height:1.35; }
+  .socials { flex-wrap:wrap; }
+}
 footer { padding-top:5rem; padding-bottom:2rem; color:var(--sub); font-size:.9rem; }
 
 .reveal { animation:rise .7s cubic-bezier(.23,1,.32,1) backwards; }

@@ -17,10 +17,10 @@ export default function Motion() {
     const spy = new IntersectionObserver((entries) => {
       for (const e of entries) {
         if (!e.isIntersecting) continue;
-        links.forEach((a) => (a.getAttribute("href") === `#${e.target.id}` ? a.setAttribute("aria-current", "true") : a.removeAttribute("aria-current")));
+        links.forEach((a) => (e.target.id && a.getAttribute("href") === `#${e.target.id}` ? a.setAttribute("aria-current", "true") : a.removeAttribute("aria-current"))); // el hero no tiene id: apaga el menú
       }
     }, { rootMargin: "-45% 0px -50% 0px" }); // línea de lectura en mitad de la pantalla
-    document.querySelectorAll<HTMLElement>("section[id]").forEach((s) => spy.observe(s));
+    document.querySelectorAll<HTMLElement>("section[id], section.hero").forEach((s) => spy.observe(s));
 
     return () => { reveal.disconnect(); spy.disconnect(); root.classList.remove("js"); };
   }, []);

@@ -1,5 +1,5 @@
 "use client";
-import { Fragment, useRef, type CSSProperties } from "react";
+import { Fragment, useEffect, useRef, type CSSProperties } from "react";
 import type { Event } from "@/data/timeline";
 import { stepState, useScrollStep } from "./useScrollStep";
 
@@ -9,9 +9,26 @@ type Year = { year: string; events: readonly Event[] };
 export default function TimelineScroll({ id, heading, years, today }: { id: string; heading: string; years: Year[]; today: string }) {
   const ref = useRef<HTMLElement>(null);
   const active = useScrollStep(ref, years.length);
+  const setsRef = useRef<HTMLDivElement>(null);
+
+  // Si los puntos de un año no caben en la pantalla, esa lista pasa a tener su propio scroll (data-scroll).
+  useEffect(() => {
+    const box = setsRef.current;
+    if (!box) return;
+    const measure = () => box.querySelectorAll<HTMLElement>(".timeline").forEach((ul) => {
+      ul.dataset.scroll = "false";
+      const last = ul.lastElementChild as HTMLElement | null;
+      ul.dataset.scroll = String(!!last && last.offsetTop + last.offsetHeight > ul.clientHeight + 1);
+    });
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(box);
+    document.fonts?.ready.then(measure);
+    return () => ro.disconnect();
+  }, [years]);
 
   return (
-    <section id={id} ref={ref} className="tech" style={{ "--n": years.length } as CSSProperties}>
+    <section id={id} ref={ref} className="tech compact" style={{ "--n": years.length } as CSSProperties}>
       <div className="tech-stick">
         <div className="tech-left">
           <h2 className="kicker">{heading}</h2>
@@ -24,7 +41,7 @@ export default function TimelineScroll({ id, heading, years, today }: { id: stri
             {years.map((y, i) => <li key={y.year} data-on={i === active} />)}
           </ol>
         </div>
-        <div className="tech-sets">
+        <div className="tech-sets" ref={setsRef}>
           {years.map((y, yi) => (
             <ul key={y.year} className={`timeline tech-set${yi > 0 ? " has-prev" : ""}${yi < years.length - 1 ? " has-next" : ""}`} data-s={stepState(yi, active)} aria-label={y.year} aria-hidden={yi !== active}>
               {y.events.map((e, i) => {

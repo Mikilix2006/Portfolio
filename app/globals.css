@@ -109,12 +109,19 @@ h1 em { background-repeat:no-repeat; animation:mark .8s .5s cubic-bezier(.23,1,.
 .dots { list-style:none; display:flex; gap:.5rem; padding:0; margin:2rem 0 0; }
 .dots li { width:.6rem; height:.6rem; border-radius:50%; background:var(--border); transition:background .3s, transform .3s; }
 .dots li[data-on="true"] { background:var(--line); transform:scale(1.4); }
-.chips { grid-area:1/1; align-self:center; list-style:none; padding:0; margin:0; display:flex; flex-wrap:wrap; gap:1.75rem 1.25rem; }
+.chips { grid-area:1/1; align-self:center; list-style:none; padding:0; margin:0; display:flex; flex-wrap:wrap; justify-content:center; gap:1.75rem 1.25rem; }
 .chips li { display:flex; flex-direction:column; align-items:center; gap:.6rem; width:6.5rem; text-align:center; font-size:.95rem; font-weight:600; line-height:1.2; opacity:0; transform:translateY(24px) scale(.8); transition:opacity .5s, transform .5s; }
 .tech-set[data-s="active"] li { opacity:1; transform:none; transition-delay:calc(var(--i) * 70ms); }
 /* Teselas claras fijas: varios logos son oscuros y se perderían en modo oscuro */
 .chips li img { width:4.5rem; height:4.5rem; padding:.7rem; background:#fff; border:1px solid var(--border); border-radius:1.1rem; transition:box-shadow .2s; }
 .tech-set[data-s="active"].chips li:hover { transform:translateY(-4px); transition-delay:0s; }
+/* Iconos flotando: cada uno se mece con su propio ritmo y fase; `translate`/`rotate` van aparte de `transform` (entrada y hover) */
+.tech-set[data-s="active"] li { animation:float var(--d,4s) ease-in-out infinite alternate; animation-delay:calc(var(--i) * -.9s); }
+.chips li:nth-child(3n+1) { --d:3.6s; margin-top:-.6rem; }
+.chips li:nth-child(3n+2) { --d:4.6s; margin-top:1.4rem; }
+.chips li:nth-child(3n) { --d:5.4s; margin-top:.4rem; }
+.chips li img { box-shadow:0 12px 22px -12px var(--line); }
+@keyframes float { from { translate:0 -9px; rotate:-3deg; } to { translate:0 9px; rotate:3deg; } }
 .chips li:hover img { box-shadow:5px 5px 0 var(--fill); }
 @media (max-width:700px) { .tech-stick { grid-template-columns:1fr; align-content:center; gap:1.5rem; } .chips li { width:5.2rem; } .chips li img { width:3.8rem; height:3.8rem; } }
 footer { padding-top:5rem; padding-bottom:2rem; color:var(--sub); font-size:.9rem; }

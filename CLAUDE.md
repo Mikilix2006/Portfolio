@@ -18,4 +18,7 @@ Portfolio personal (Next.js 16, export estático, TypeScript). Repo: Mikilix2006
 
 ## Despliegue
 - Producción: www.planetamiguel.com, Caddy sirve `/var/www/portfolio` (SSH root solo con clave). `rebufo.planetamiguel.com` es la app MotoGP Stats, NO el portfolio.
-- Método (script al servidor vs GitHub Pages) sin decidir. No desplegar sin confirmación.
+- Método decidido: compilar y subir `out/` por SSH (sin GitHub Pages). No desplegar sin confirmación.
+- Pasos: desplegar desde `main` actualizado y con el PR ya fusionado; `npm run typecheck && npm run build`; borrar de `out/` los `.psd` y `.mdp` (archivos de trabajo de `public/primera-web/`, no se publican); `tar czf - -C out . | ssh root@www.planetamiguel.com` y en el servidor extraer en `/var/www/portfolio.new`, `chown -R caddy:caddy`, y cambiar `portfolio` por `portfolio.new` (la anterior queda en `portfolio.old`).
+- Después: comprobar con `curl` que `/es/`, `/en/` y `/primera-web/index.html` devuelven 200. Marcha atrás: `mv portfolio portfolio.bad && mv portfolio.old portfolio`. Borrar `portfolio.old` solo cuando el usuario lo confirme.
+- La primera web (`public/primera-web/`) se enlaza como `/primera-web/index.html`: el servidor de desarrollo no sirve índices de carpetas de `public/`.

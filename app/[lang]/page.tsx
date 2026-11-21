@@ -1,7 +1,13 @@
+import type { CSSProperties } from "react";
 import { dict, type Lang } from "@/data/dictionary";
+import { techGroups } from "@/data/tech";
 import { projects } from "@/data/projects";
 import NoDemo from "./NoDemo";
 import BackToTop from "./BackToTop";
+import Motion from "./Motion";
+import TechScroll from "./TechScroll";
+import TimelineScroll from "./TimelineScroll";
+import { timeline } from "@/data/timeline";
 
 export default async function Home({ params }: { params: Promise<{ lang: Lang }> }) {
   const { lang } = await params;
@@ -12,7 +18,9 @@ export default async function Home({ params }: { params: Promise<{ lang: Lang }>
       <a className="skip" href="#work">{t.skip}</a>
       <nav className="nav">
         <a href="#work">{t.work}</a>
-        <a href="#about">{t.about}</a>
+        <a href="#path">{t.path}</a>
+        <a href="#tech">{t.tech}</a>
+        <a href="#social">{t.social}</a>
         <a href={`/${other}/`} hrefLang={other} lang={other}>{other.toUpperCase()}</a>
       </nav>
       <main>
@@ -44,11 +52,32 @@ export default async function Home({ params }: { params: Promise<{ lang: Lang }>
           </ul>
         </section>
 
-        <section id="about" className="section">
-          <h2>{t.about}</h2>
-          <p className="about">{t.aboutText}</p>
+        <TimelineScroll id="path" heading={t.path} today={t.today} years={timeline.map((y) => ({ year: y.year, events: y.events[lang] }))} />
+
+        <TechScroll id="tech" heading={t.tech} groups={techGroups.map((g) => ({ title: t[g.label], items: g.items.map((x) => ({ icon: x.icon, name: typeof x.name === "string" ? x.name : x.name[lang] })), links: "links" in g ? g.links : undefined }))} />
+
+        <section id="social" className="section">
+          <h2>{t.social}</h2>
+          <p className="sub">{t.socialLead}</p>
+          <ul className="socials">
+            {[
+              ["GitHub", "github", "https://github.com/Mikilix2006"],
+              ["LinkedIn", "linkedin", "https://www.linkedin.com/in/miguel-gonz%C3%A1lez-delgado-00b7a13b0"],
+              ["Codewars", "codewars", "https://www.codewars.com/users/Mikilix"],
+              ["LeetCode", "leetcode", "https://leetcode.com/u/Mikilix/"],
+              ["Instagram", "instagram", "https://www.instagram.com/ciencia.compilada"],
+            ].map(([name, icon, href], i) => (
+              <li key={name} style={{ "--i": i } as CSSProperties}>
+                <a href={href} aria-label={name} title={name} target="_blank" rel="noopener noreferrer">
+                  <img src={`/icons/${icon}.svg`} alt="" width={40} height={40} />
+                </a>
+              </li>
+            ))}
+          </ul>
+          <p className="hint">↑ {t.socialHint}</p>
         </section>
       </main>
+      <Motion />
       <BackToTop label={t.top} />
       <footer>© MMXXVI · {t.made}</footer>
     </>

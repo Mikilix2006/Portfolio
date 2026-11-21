@@ -5,13 +5,19 @@ export const dict = {
   es: {
     hi: "Hola, soy", name: "Miguel", role: "desarrollador de software", roleLead: "Construyo aplicaciones web de principio a fin:",
     roleTail: "datos, backend e interfaz.", scroll: "Desliza", work: "Proyectos", workLead: "Cosas que he construido.",
-    repo: "Repositorio", wip: "En construcción", demo: "Ver demo", noDemo: "¡Ojo! Esta aplicación aún no está desplegada. Vuelve pronto.", about: "Sobre mí", aboutText: "Me gusta convertir datos en productos útiles y bien cuidados. Cada proyecto vive en su propio repositorio, abierto para que lo revises.",
+    repo: "Repositorio", wip: "En construcción", demo: "Ver demo", noDemo: "¡Ojo! Esta aplicación aún no está desplegada. Vuelve pronto.",
+    path: "Trayectoria", today: "HOY",
+    tech: "Tecnologías", techLead: "Con lo que trabajo.", techMain: "Principal", techAI: "IA", techBackend: "Backend", techFront: "Frontend", techLearn: "Aprendiendo", techTools: "Herramientas",
+    social: "Redes", socialLead: "Donde encontrarme.", socialHint: "Haz clic en los iconos para abrir mis perfiles",
     top: "Volver arriba", made: "Hecho con Next.js", skip: "Saltar al contenido",
   },
   en: {
     hi: "Hi, I'm", name: "Miguel", role: "software developer", roleLead: "I build web apps end to end:",
     roleTail: "data, backend and interface.", scroll: "Scroll", work: "Work", workLead: "Things I've built.",
-    repo: "Repository", wip: "Under construction", demo: "Live demo", noDemo: "Heads up! This app isn't deployed yet. Check back soon.", about: "About", aboutText: "I like turning data into useful, well-crafted products. Every project lives in its own open repository for you to review.",
+    repo: "Repository", wip: "Under construction", demo: "Live demo", noDemo: "Heads up! This app isn't deployed yet. Check back soon.",
+    path: "Journey", today: "TODAY",
+    tech: "Tech", techLead: "What I work with.", techMain: "Main", techAI: "AI", techBackend: "Backend", techFront: "Frontend", techLearn: "Learning", techTools: "Tools",
+    social: "Social", socialLead: "Where to find me.", socialHint: "Click the icons to open my profiles",
     top: "Back to top", made: "Made with Next.js", skip: "Skip to content",
   },
 } satisfies Record<Lang, Record<string, string>>;

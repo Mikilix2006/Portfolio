@@ -49,12 +49,18 @@ export default function TimelineScroll({ id, heading, years, today }: { id: stri
                 const { text, href, icon, label } = typeof e === "string" ? { text: e, href: undefined, icon: undefined, label: undefined } : e;
                 return (
                   <li key={text} style={{ "--i": i } as CSSProperties}>
-                    {(text.includes("[gh]") ? text : `${text}[gh]`).split("[gh]").map((chunk, c) => (
-                      <Fragment key={c}>
-                        {c > 0 && href && <a className={`gh${text.includes("[gh]") ? " inline" : ""}${icon === "web" ? " web" : ""}`} href={href} target="_blank" rel="noopener noreferrer" aria-label={label ?? "GitHub"} title={label ?? "GitHub"} />}
-                        {marks(chunk)}
-                      </Fragment>
-                    ))}
+                    {(() => {
+                      const chunks = (text.includes("[gh]") ? text : `${text}[gh]`).split("[gh]");
+                      const gh = href && <a className={`gh${text.includes("[gh]") ? " inline" : ""}${icon === "web" ? " web" : ""}`} href={href} target="_blank" rel="noopener noreferrer" aria-label={label ?? "GitHub"} title={label ?? "GitHub"} />;
+                      return chunks.map((chunk, c) => {
+                        // El último *nombre* y el icono van en un span nowrap: así el icono nunca queda solo en una línea.
+                        const parts = chunk.split("*");
+                        const tail = c < chunks.length - 1 && parts.length > 2 && parts[parts.length - 1] === "" ? parts[parts.length - 2] : null;
+                        return tail === null ? <Fragment key={c}>{marks(chunk)}</Fragment> : (
+                          <Fragment key={c}>{marks(parts.slice(0, -2).join("*"))}<span className="nb"><strong>{tail}</strong>{gh}</span></Fragment>
+                        );
+                      });
+                    })()}
                   </li>
                 );
               })}

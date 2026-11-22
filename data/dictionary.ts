@@ -8,7 +8,7 @@ export const dict = {
     repo: "Repositorio", wip: "En construcción", demo: "Ver demo", noDemo: "¡Ojo! Esta aplicación aún no está desplegada. Vuelve pronto.",
     path: "Trayectoria", today: "HOY",
     tech: "Tecnologías", techLead: "Con lo que trabajo.", techMain: "Principal", techAI: "IA", techBackend: "Backend", techFront: "Frontend", techLearn: "Aprendiendo", techTools: "Herramientas",
-    social: "Redes", socialLead: "Donde encontrarme.", socialHint: "Haz clic en los iconos para abrir mis perfiles",
+    social: "Redes", socialLead: "Donde encontrarme.",
     top: "Volver arriba", made: "Hecho con Next.js", skip: "Saltar al contenido",
   },
   en: {
@@ -17,7 +17,7 @@ export const dict = {
     repo: "Repository", wip: "Under construction", demo: "Live demo", noDemo: "Heads up! This app isn't deployed yet. Check back soon.",
     path: "Journey", today: "TODAY",
     tech: "Tech", techLead: "What I work with.", techMain: "Main", techAI: "AI", techBackend: "Backend", techFront: "Frontend", techLearn: "Learning", techTools: "Tools",
-    social: "Social", socialLead: "Where to find me.", socialHint: "Click the icons to open my profiles",
+    social: "Social", socialLead: "Where to find me.",
     top: "Back to top", made: "Made with Next.js", skip: "Skip to content",
   },
 } satisfies Record<Lang, Record<string, string>>;

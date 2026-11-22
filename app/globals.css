@@ -77,7 +77,8 @@ h2 { font-size:clamp(2rem,5vw,3.25rem); font-weight:800; }
 .timeline strong { font-weight:800; color:var(--text); box-shadow:inset 0 -.4em var(--fill); padding:0 .15em; }
 /* Logo de GitHub sin fondo: máscara con el SVG, así toma el color del texto (también en oscuro) */
 .timeline .gh { display:inline-block; width:1.15em; height:1.15em; margin-left:.5em; vertical-align:-.15em; background:currentColor; -webkit-mask:url(/icons/github.svg) center/contain no-repeat; mask:url(/icons/github.svg) center/contain no-repeat; transition:color .2s, transform .2s; }
-.timeline .gh.inline { margin-left:0; }
+.timeline .gh.inline { margin-left:.35em; }
+.timeline .nb { white-space:nowrap; }
 .timeline .gh.web { -webkit-mask-image:url(/icons/web.svg); mask-image:url(/icons/web.svg); } /* enlace a una web, no a GitHub */
 .timeline .gh:hover { color:var(--line); transform:scale(1.15); }
 .timeline li.now { font:800 1.2em/1 var(--serif); letter-spacing:.2em; color:var(--line); }

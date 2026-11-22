@@ -74,7 +74,6 @@ export default async function Home({ params }: { params: Promise<{ lang: Lang }>
               </li>
             ))}
           </ul>
-          <p className="hint">↑ {t.socialHint}</p>
         </section>
       </main>
       <Motion />

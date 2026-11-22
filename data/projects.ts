@@ -30,6 +30,24 @@ export const projects: Project[] = [
     },
   },
   {
+    id: "madrid-aredl",
+    repo: "https://github.com/Mikilix2006/MadridAREDL",
+    noDemo: true,
+    stack: ["Python", "discord.py", "MongoDB", "Flask"],
+    text: {
+      es: {
+        name: "Madrid AREDL",
+        description:
+          "Bot de Discord para la comunidad Madrid AREDL de Geometry Dash: registra el hardest de cada miembro, lo verifica con la API de AREDL y lo guarda en MongoDB.",
+      },
+      en: {
+        name: "Madrid AREDL",
+        description:
+          "Discord bot for the Madrid AREDL Geometry Dash community: records each member's hardest level, verifies it against the AREDL API and stores it in MongoDB.",
+      },
+    },
+  },
+  {
     id: "tope",
     repo: "https://github.com/Mikilix2006/Tope",
     wip: true,

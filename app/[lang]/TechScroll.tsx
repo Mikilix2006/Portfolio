@@ -69,7 +69,7 @@ export default function TechScroll({ id, heading, groups }: { id: string; headin
               {g.links && <Rope pairs={g.links} />}
               {g.items.map((x, i) => (
                 <li key={x.name} data-icon={x.icon} style={{ "--i": i } as CSSProperties}>
-                  <img src={`/icons/${x.icon}.svg`} alt="" width={64} height={64} />
+                  <div className="tile"><img src={`/icons/${x.icon}.svg`} alt="" width={64} height={64} /></div>
                   <span>{x.name}</span>
                 </li>
               ))}

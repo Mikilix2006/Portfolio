@@ -5,6 +5,10 @@
 }
 @media (prefers-color-scheme: dark) {
   :root { --bg:#0a0f2e; --text:#e8edff; --sub:#9db3d6; --fill:#1b2a6b; --line:#b98cff; --border:#26337a; --nl:#151d52; --nd:#04061a; }
+  /* solo el logo (el <img>) a claro; la baldosa neumórfica es su contenedor y no se filtra */
+  img[src$="/github.svg"], img[src$="/mcp.svg"] { filter:brightness(0) invert(1); }
+  img[src$="/nextjs.svg"] { filter:invert(1); }
+  img[src$="/claude-code.svg"], img[src$="/bash.svg"], img[src$="/aws.svg"], img[src$="/wordpress.svg"] { filter:invert(1) hue-rotate(180deg); }
 }
 * { box-sizing:border-box; }
 html { scroll-behavior:smooth; scrollbar-width:none; }
@@ -129,20 +133,21 @@ h1 em { background-repeat:no-repeat; animation:mark .8s .5s cubic-bezier(.23,1,.
 .chips li { z-index:1; display:flex; flex-direction:column; align-items:center; gap:.6rem; width:6.5rem; text-align:center; font-size:.95rem; font-weight:600; line-height:1.2; opacity:0; transform:translateY(24px) scale(.8); transition:opacity .5s, transform .5s; }
 .tech-set[data-s="active"] li { opacity:1; transform:none; transition-delay:calc(var(--i) * 70ms); }
 /* Teselas claras fijas: varios logos son oscuros y se perderían en modo oscuro */
-.chips li img { width:4.5rem; height:4.5rem; padding:.7rem; background:var(--bg); border-radius:1.1rem; transition:box-shadow .2s; }
+.chips li .tile { width:4.5rem; height:4.5rem; padding:.7rem; background:var(--bg); border-radius:1.1rem; transition:box-shadow .2s; }
+.chips li .tile img { display:block; width:100%; height:100%; }
 .tech-set[data-s="active"].chips li:hover { transform:translateY(-4px); transition-delay:0s; }
 /* Iconos flotando: cada uno se mece con su propio ritmo y fase; `translate`/`rotate` van aparte de `transform` (entrada y hover) */
 .tech-set[data-s="active"].chips li { animation:float var(--d,4s) ease-in-out infinite alternate; animation-delay:calc(var(--i) * -.9s); }
 .chips li:nth-child(3n+1) { --d:3.6s; margin-top:-.6rem; }
 .chips li:nth-child(3n+2) { --d:4.6s; margin-top:1.4rem; }
 .chips li:nth-child(3n) { --d:5.4s; margin-top:.4rem; }
-.chips li img { box-shadow:6px 6px 12px var(--nd), -6px -6px 12px var(--nl); }
+.chips li .tile { box-shadow:6px 6px 12px var(--nd), -6px -6px 12px var(--nl); }
 .rope { position:absolute; inset:0; width:100%; height:100%; overflow:visible; pointer-events:none; z-index:0; }
 .rope path { fill:none; stroke-linecap:round; }
 .rope-base { stroke:#a9824f; stroke-width:6; }
 .rope-twist { stroke:#ead3a4; stroke-width:6; stroke-dasharray:2 6; stroke-linecap:butt !important; }
 @keyframes float { from { translate:0 calc(var(--fy,9px) * -1); rotate:-3deg; } to { translate:0 var(--fy,9px); rotate:3deg; } }
-.chips li:hover img { box-shadow:var(--inset); }
+.chips li:hover .tile { box-shadow:var(--inset); }
 /* Móvil: todo debe verse entero en una pantalla de ~360x640 sin solaparse */
 @media (max-width:700px) {
   .nav { justify-content:center; flex-wrap:wrap; gap:.15rem .9rem; padding:.6rem .75rem; font-size:.82rem; background:color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter:blur(8px); }
@@ -153,7 +158,7 @@ h1 em { background-repeat:no-repeat; animation:mark .8s .5s cubic-bezier(.23,1,.
   .dots { margin-top:1rem; }
   .chips { gap:1.1rem .6rem; --fy:5px; }
   .chips li { width:4.6rem; font-size:.75rem; margin-top:0 !important; }
-  .chips li img { width:3.1rem; height:3.1rem; padding:.5rem; border-radius:.8rem; }
+  .chips li .tile { width:3.1rem; height:3.1rem; padding:.5rem; border-radius:.8rem; }
   .timeline { --pad:1.5rem; --dot:1.1rem; gap:1rem; font-size:1rem; line-height:1.35; }
   .socials { flex-wrap:wrap; gap:.6rem; }
   .socials a { width:3.2rem; height:3.2rem; }

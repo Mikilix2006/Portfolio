@@ -43,8 +43,12 @@ h2 { font-size:clamp(2rem,5vw,3.25rem); font-weight:800; }
 .card.wip::after { content:""; position:absolute; left:0; right:0; bottom:0; height:.7rem; background:repeating-linear-gradient(-45deg,#f5b400 0 .7rem,#1a1a1a .7rem 1.4rem); background-size:2rem 100%; animation:hazard 1.2s linear infinite; pointer-events:none; }
 .card.wip { padding-bottom:2.5rem; }
 .card .tape { margin:0 0 1rem; }
-.tape span { display:inline-block; background:#f5b400; color:#1a1a1a; font:700 .8rem/1 ui-monospace,Consolas,monospace; letter-spacing:.08em; text-transform:uppercase; padding:.4rem .7rem; border-radius:.3rem; transform:rotate(-2deg); animation:sway 2.4s ease-in-out infinite; transform-origin:left center; }
+.tape span { display:inline-block; background:#f5b400; color:#1a1a1a; font:700 .8rem/1 ui-monospace,Consolas,monospace; letter-spacing:.08em; text-transform:uppercase; padding:.4rem .7rem; border-radius:.3rem; transform:rotate(-2deg); animation:sway 2.4s ease-in-out infinite, bump 1.8s infinite; transform-origin:left center; }
 @keyframes hazard { to { background-position-x:2rem; } }
+/* Martillo que golpea la etiqueta "En construcción"; el golpe (68%) coincide con el temblor de la etiqueta */
+.card.wip .tape::after { content:"🔨"; display:inline-block; margin-left:.4rem; font-size:1.6rem; vertical-align:middle; transform-origin:85% 85%; animation:hammer 1.8s infinite; }
+@keyframes hammer { 0%,55% { transform:rotate(40deg); } 68% { transform:rotate(-35deg); } 78% { transform:rotate(-15deg); } 100% { transform:rotate(40deg); } }
+@keyframes bump { 0%,66%,80%,100% { translate:0 0; } 70% { translate:-4px 1px; } 74% { translate:-1px 0; } }
 @keyframes sway { 50% { transform:rotate(1.5deg); } }
 /* Botón "prohibido": cintas rojas + nube de cómic */
 .nodemo-wrap { position:relative; display:inline-flex; }

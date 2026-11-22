@@ -5,6 +5,8 @@
 }
 @media (prefers-color-scheme: dark) {
   :root { --bg:#0a0f2e; --text:#e8edff; --sub:#9db3d6; --fill:#1b2a6b; --line:#b98cff; --border:#26337a; --nl:#151d52; --nd:#04061a; }
+  .nav a[aria-current] { filter:drop-shadow(0 0 .12em var(--line)) drop-shadow(0 0 .45em var(--line)); } /* drop-shadow: el brillo cubre texto y subrayado; solo en oscuro */
+  .tech-title.year { text-shadow:0 0 .12em var(--line), 0 0 .45em var(--line); } /* el brillo solo en oscuro: en claro ensucia el contraste */
   /* solo el logo (el <img>) a claro; la baldosa neumórfica es su contenedor y no se filtra */
   img[src$="/github.svg"], img[src$="/mcp.svg"] { filter:brightness(0) invert(1); }
   img[src$="/nextjs.svg"] { filter:invert(1); }
@@ -71,7 +73,7 @@ h2 { font-size:clamp(2rem,5vw,3.25rem); font-weight:800; }
 .btn.ghost { box-shadow:var(--inset); }
 .btn.ghost:hover { box-shadow:6px 6px 12px var(--nd), -6px -6px 12px var(--nl); color:var(--line); }
 /* Año grande y con brillo */
-.tech-title.year { font-size:clamp(4.5rem,15vw,11rem); letter-spacing:-.02em; text-shadow:0 0 .12em var(--line), 0 0 .45em var(--line); }
+.tech-title.year { font-size:clamp(4.5rem,15vw,11rem); letter-spacing:-.02em; }
 /* Línea cronológica: raya vertical con un punto por hito */
 .timeline { --pad:2.5rem; --dot:1.6rem; grid-area:1/1; align-self:center; list-style:none; margin:0; padding:0 0 0 var(--pad); border-left:3px solid var(--line); display:flex; flex-direction:column; gap:2rem; font-size:clamp(1.2rem,2.4vw,1.75rem); font-weight:600; line-height:1.4; }
 .timeline { position:relative; max-height:100%; }
@@ -100,7 +102,7 @@ h2 { font-size:clamp(2rem,5vw,3.25rem); font-weight:800; }
 .js .section .reveal { animation-play-state:paused; }
 .js .section.in .reveal { animation-play-state:running; }
 .nav a { transition:border-color .2s, filter .2s; }
-.nav a[aria-current] { border-color:var(--line); font-weight:800; filter:drop-shadow(0 0 .12em var(--line)) drop-shadow(0 0 .45em var(--line)); } /* drop-shadow: el brillo cubre texto y subrayado */
+.nav a[aria-current] { border-color:var(--line); font-weight:800; } /* drop-shadow: el brillo cubre texto y subrayado */
 h1 em { background-repeat:no-repeat; animation:mark .8s .5s cubic-bezier(.23,1,.32,1) backwards; }
 @keyframes mark { from { background-size:0 100%; } }
 #social { text-align:center; }

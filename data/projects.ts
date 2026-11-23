@@ -32,8 +32,8 @@ export const projects: Project[] = [
   {
     id: "madrid-aredl",
     repo: "https://github.com/Mikilix2006/MadridAREDL",
+    demo: "https://madridaredl.planetamiguel.com",
     wip: true,
-    noDemo: true,
     stack: ["Python", "discord.py", "MongoDB", "Flask"],
     text: {
       es: {
